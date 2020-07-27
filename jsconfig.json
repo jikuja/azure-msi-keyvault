@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "checkJs": true,
+  },
+  "include": ["index.js", "src/**/*.js", "tests/**/*.js"],
+  "exclude": ["node_modules"]
+}

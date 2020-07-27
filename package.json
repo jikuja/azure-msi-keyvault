@@ -1,0 +1,36 @@
+{
+  "name": "azure-msi-keyvault",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "typecheck": "tsc -p jsconfig.json",
+    "typecheck-strict": "tsc --noImplicitAny -p jsconfig.json",
+    "tsc-checkjs": "tsc-checkjs index.js src/*.js tests/*.js",
+    "tsc-checkjs-strict": "tsc-checkjs --noImplicitAny index.js src/*.js tests/*.js",
+    "standard": "standard",
+    "eslint": "eslint *.js src/*.js tests/*.js",
+    "lint": "npm run standard && npm run eslint",
+    "pretest": "npm run lint",
+    "test": "tap tests/*.js"
+  },
+  "author": "Janne Kujanpää",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.12.51",
+    "mock-http-server": "^1.4.2",
+    "rewire": "^5.0.0",
+    "rewiremock": "^3.14.3",
+    "sinon": "^9.0.2",
+    "standard": "^14.3.4",
+    "tap": "^14.10.7",
+    "tsc-checkjs": "github:jikuja/tsc-checkjs",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "bent": "^7.3.7"
+  },
+  "engines": {
+    "node": ">=10"
+  }
+}
