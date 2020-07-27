@@ -52,8 +52,8 @@ async function enrichEnvvarsWithKvSecrets (aadAccessToken) {
   const token = await getAadAccessToken(aadAccessToken)
 
   const kvPromises = Object.keys(process.env).filter(x => x.startsWith(KV_PREFIX)).map(key => {
-    const url = process.env[key].replace(KV_PREFIX, '')
-    const valuePromise = getJson(url, '', { Authorization: `Bearer ${token}` }).then(data => {
+    const url = process.env[key].replace('kv:', '')
+    const valuePromise = getJson(url + '?api-version=7.0', '', { Authorization: `Bearer ${token}` }).then(data => {
       // @ts-ignore
       const secretValue = data.value
       process.env[key.replace(KV_PREFIX, '')] = secretValue
