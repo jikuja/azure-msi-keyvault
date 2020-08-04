@@ -1,5 +1,6 @@
-const entrypoint = require('./src/index.js').enrichEnvvarsWithKvSecrets
+const m = require('./src/index.js')
 
 module.exports = {
-  enrichEnvvarsWithKvSecrets: entrypoint
+  enrichEnvvarsWithKvSecrets: m.enrichEnvvarsWithKvSecrets,
+  getAADTokenFromMSI: m.getAADTokenFromMSI
 }

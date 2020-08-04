@@ -7,13 +7,18 @@ const getJson = bent('json')
 const KV_PREFIX = 'KV_'
 
 /**
- * @param {string} endpoint
- * @param {string} secret
  * @param {string} resource
  * @returns {Promise<string>} the Active Directory Access token
  */
-async function getAADTokenFromMSI (endpoint, secret, resource) {
+async function getAADTokenFromMSI (resource) {
   const apiVersion = '2017-09-01'
+  const endpoint = process.env.MSI_ENDPOINT
+  const secret = process.env.MSI_SECRET
+
+  if (endpoint === undefined || secret === undefined) {
+    throw new Error('Cannot fech AAD from MSI: MSI_ENDPOINT or MSI_SECRET environment variable is missing')
+  }
+
   const p = getJson(`${endpoint}/?resource=${resource}&api-version=${apiVersion}`, '', { Secret: secret })
 
   // @ts-ignore
@@ -33,7 +38,7 @@ async function getAadAccessToken (aadAccessToken) {
   if (!aadAccessToken) {
     // no token - get one using Managed Service Identity inside process.env
     const resource = 'https://vault.azure.net'
-    aadToken = getAADTokenFromMSI(process.env.MSI_ENDPOINT, process.env.MSI_SECRET, resource)
+    aadToken = getAADTokenFromMSI(resource)
   } else if (typeof aadAccessToken === 'function') {
     aadToken = aadAccessToken()
   } else if (typeof aadAccessToken === 'string') {
