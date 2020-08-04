@@ -12,7 +12,7 @@
     "eslint": "eslint *.js src/*.js tests/*.js",
     "lint": "npm run standard && npm run eslint",
     "pretest": "npm run lint && npm run tsc-checkjs",
-    "test": "tap tests/*.js"
+    "test": "tap --100 tests/*.js"
   },
   "author": "Janne Kujanpää",
   "license": "MIT",
@@ -24,7 +24,7 @@
     "sinon": "^9.0.2",
     "standard": "^14.3.4",
     "tap": "^14.10.7",
-    "tsc-checkjs": "^1.0.1",
+    "tsc-checkjs": "^1.0.2",
     "typescript": "^3.9.7"
   },
   "dependencies": {
