@@ -4,12 +4,11 @@
 ![npm](https://img.shields.io/npm/v/azure-msi-keyvault)
 ![GitHub](https://img.shields.io/github/license/jikuja/azure-msi-keyvault)
 
-Azure-msi-keyvault is a helper function to enrich Azure function app environment variables with Keyvault secrets.
-
-Function is using managed service identity(MSI) for Keyvault authentication. 
+Azure-msi-keyvault is a set of helper functions to enrich Azure function app environment variables with Keyvault secrets and to fetch Azure AD(AAD)
+tokens with Managed Service Identity(MSI) service.
 
 Environment variables matching with `KV_{basename}` are assumed to contain keyvault URL and for all matching environment variable secret is fetch from
-keyvault and stored into mathing environment variables named as `{basename}`
+keyvault and stored into mathing environment variables named as `{basename}`. Alternatively AAD token can be fetched and used with other Azure services.
 
 ## Installation
 
@@ -17,6 +16,8 @@ Install the package
 * `npm install --save-prod azure-msi-keyvault`
 
 ## Usage
+
+### Keyvault secrets
 
 Import package and start "background" process to enrich environment variables. Third line is optional but recommended:
 ```javascript
@@ -49,6 +50,28 @@ and the secret itself.
 
 See TBD for full example.
 
+### Azure AD tokens
+
+To fetch AAD token just call function `getAADTokenFromMSI()`:
+
+```javascript
+const getAADTokenFromMSI = require('azure-msi-keyvault').getAADTokenFromMSI
+
+module.exports = async function (context, req) {
+    return getAADTokenFromMSI().then((token) => {
+        const result = await(doSomething(token))
+        context.res = {
+            status: 200,
+            body : {
+                "token" : result
+            }
+        }
+    }).catch((err) => {
+        throw err
+    })
+}
+```
+
 ## License
 
 Copyright 2020 jikuja
@@ -58,5 +81,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
