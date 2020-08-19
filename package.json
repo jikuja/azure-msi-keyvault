@@ -17,7 +17,7 @@
   "author": "Janne Kujanpää",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^12.12.51",
+    "@types/node": "^14.6.0",
     "mock-http-server": "^1.4.2",
     "rewire": "^5.0.0",
     "rewiremock": "^3.14.3",
