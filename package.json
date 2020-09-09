@@ -1,6 +1,6 @@
 {
   "name": "azure-msi-keyvault",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Azure function app helper enriching environment variables with keyvault secrets",
   "main": "index.js",
   "scripts": {
